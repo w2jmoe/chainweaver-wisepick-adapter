@@ -1,4 +1,4 @@
-# WisePick × ChainWeaver Adapter
+# ChainWeaver x WisePick Adapter
 
 Bridge WisePick’s **decision plane** (routing, scoring, feedback) with ChainWeaver’s **execution plane** (`FlowRegistry` + `FlowExecutor.execute_flow`). Stdlib + in-repo `wisepick` client only.
 
@@ -10,7 +10,7 @@ Implementation: [`chainweaver_adapter.py`](./chainweaver_adapter.py)
 
 ```bash
 # Clone this adapter repo alongside your project
-git clone [https://github.com/w2jmoe/chainweaver-wisepick-adapter.git](https://github.com/w2jmoe/chainweaver-wisepick-adapter.git)
+git clone https://github.com/w2jmoe/chainweaver-wisepick-adapter.git
 
 # Ensure your project can import wisepick (e.g., via PYTHONPATH or pip install)
 export PYTHONPATH=$PYTHONPATH:$(pwd)/chainweaver-wisepick-adapter
@@ -102,4 +102,4 @@ capability_to_flow = {
 
 ## References
 
-* WisePick runtime pattern: [`./docs/ADAPTER_PATTERN.md`](https://www.google.com/search?q=./docs/ADAPTER_PATTERN.md)
+* WisePick runtime pattern: [`./docs/ADAPTER_PATTERN.md`](https://github.com/w2jmoe/WisePick/blob/main/docs/ADAPTER_PATTERN.md)
