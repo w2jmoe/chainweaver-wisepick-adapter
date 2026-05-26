@@ -2,7 +2,18 @@
 
 Bridge WisePick’s **decision plane** (routing, scoring, feedback) with ChainWeaver’s **execution plane** (`FlowRegistry` + `FlowExecutor.execute_flow`). Stdlib + in-repo `wisepick` client only.
 
-Implementation: [`chainweaver_adapter.py`](./chainweaver_adapter.py)
+## Repository layout
+
+```
+adapters/
+  __init__.py
+  chainweaver_adapter.py   # WisePickChainWeaverAdapter and types
+tests/
+  test_chainweaver_adapter.py
+.github/workflows/ci.yml
+```
+
+Implementation: [`adapters/chainweaver_adapter.py`](./adapters/chainweaver_adapter.py)
 
 ---
 
@@ -14,7 +25,6 @@ git clone https://github.com/w2jmoe/chainweaver-wisepick-adapter.git
 
 # Ensure your project can import wisepick (e.g., via PYTHONPATH or pip install)
 export PYTHONPATH=$PYTHONPATH:$(pwd)/chainweaver-wisepick-adapter
-
 ```
 
 ---
@@ -40,7 +50,7 @@ Without the adapter, teams re-implement the same glue: decide → guess flow nam
 ```python
 from chainweaver import Flow, FlowExecutor, FlowRegistry
 from wisepick import WisePickClient
-from chainweaver_adapter import FlowRouteMapping, WisePickChainWeaverAdapter
+from adapters.chainweaver_adapter import FlowRouteMapping, WisePickChainWeaverAdapter
 
 registry = FlowRegistry()
 registry.register_flow(my_flow)
@@ -62,17 +72,15 @@ adapter = WisePickChainWeaverAdapter(
 )
 
 result = adapter.select_and_execute("Transcribe today's standup recording")
-print(result["contract"]) 
+print(result["contract"])
 print(result["execution"])
 print(result["trace"])
-
 ```
 
 Run unit tests:
 
 ```bash
-python -m pytest tests/test_chainweaver_adapter.py -q
-
+python -m pytest tests/test_chainweaver_adapter.py -v
 ```
 
 ---
@@ -88,7 +96,6 @@ capability_to_flow = {
         flow_version="2.1.0",           # advisory audit metadata only (see below)
     ),
 }
-
 ```
 
 **`flow_version` is advisory audit metadata, not an execution selector.** ChainWeaver resolves flows by `flow_id` via `FlowRegistry.get_flow` / `execute_flow(flow_id, …)`. The version string is copied into `WeaverRouterContract`, `initial_input`, and feedback JSON for rollout tracking and observability—it does **not** switch runtime behavior unless your own ChainWeaver layer chooses to read it.
