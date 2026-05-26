@@ -1,3 +1,6 @@
+[**This repository is archived. The ChainWeaver integration has been merged into the main WisePick repository.**](https://github.com/w2jmoe/WisePick)
+　
+　
 # ChainWeaver x WisePick Adapter
 
 Bridge WisePick’s **decision plane** (routing, scoring, feedback) with ChainWeaver’s **execution plane** (`FlowRegistry` + `FlowExecutor.execute_flow`). Stdlib + in-repo `wisepick` client only.
